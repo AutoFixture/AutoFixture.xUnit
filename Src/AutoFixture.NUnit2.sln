@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixtureUnitTest", "Auto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTypeFoundation", "TestTypeFoundation\TestTypeFoundation.csproj", "{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.NUnit", "AutoFixture.NUnit\AutoFixture.NUnit.csproj", "{786AFDB3-B705-49DD-A565-34F44A4A2DAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.NUnit2", "AutoFixture.NUnit2\AutoFixture.NUnit2.csproj", "{786AFDB3-B705-49DD-A565-34F44A4A2DAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.NUnit.UnitTest", "AutoFixture.NUnit.UnitTest\AutoFixture.NUnit.UnitTest.csproj", "{5CACC229-A5EF-4683-A846-D59230284D66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.NUnit2.UnitTest", "AutoFixture.NUnit2.UnitTest\AutoFixture.NUnit2.UnitTest.csproj", "{5CACC229-A5EF-4683-A846-D59230284D66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
