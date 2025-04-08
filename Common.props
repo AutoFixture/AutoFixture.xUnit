@@ -26,11 +26,12 @@
 
     <!-- NuGet options -->
     <Authors>AutoFixture Contributors</Authors>
-    <PackageProjectUrl>https://github.com/AutoFixture/AutoFixture</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/AutoFixture/AutoFixture.xUnit</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/AutoFixture/AutoFixture/79c882c3f4af3cf52ad43e5c95851f25d217ac17/AutoFixtureLogo200x200.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
@@ -40,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="\" />
     <None Include="$(MSBuildThisFileDirectory)\AutoFixtureLogo200x200.png" Pack="true" PackagePath="icon.png"/>
   </ItemGroup>
 
