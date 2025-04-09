@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Common.props" />
-  <Import Project="..\Common.Test.props" />
+  <Import Project="..\..\Common.props" />
+  <Import Project="..\..\Common.Test.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard1.2</TargetFrameworks>
+    <TargetFrameworks>net452;net462;netstandard2.0</TargetFrameworks>
     <AssemblyTitle>TestTypeFoundation</AssemblyTitle>
     <AssemblyName>TestTypeFoundation</AssemblyName>
   </PropertyGroup>

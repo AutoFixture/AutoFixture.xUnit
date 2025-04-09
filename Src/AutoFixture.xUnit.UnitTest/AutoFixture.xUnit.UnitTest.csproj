@@ -1,30 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Common.props" />
-  <Import Project="..\Common.Test.props" />
+  <Import Project="..\..\Common.props" />
+  <Import Project="..\..\Common.Test.props" />
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFrameworks>net452;net462</TargetFrameworks>
     <AssemblyTitle>AutoFixture.xUnit.net.UnitTest</AssemblyTitle>
     <AssemblyName>AutoFixture.Xunit.UnitTest</AssemblyName>
     <RootNamespace>AutoFixture.Xunit.UnitTest</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.18.1" />
     <PackageReference Include="xunit" Version="1.9.2" />
     <PackageReference Include="xunit.extensions" Version="1.8.0.1549" />
-
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoFixture\AutoFixture.csproj" />
     <ProjectReference Include="..\AutoFixture.xUnit\AutoFixture.xUnit.csproj" />
     <ProjectReference Include="..\TestTypeFoundation\TestTypeFoundation.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <ItemGroup>

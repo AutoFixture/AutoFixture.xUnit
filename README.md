@@ -1,100 +1,145 @@
-# AutoFixture
+# AutoFixture.xUnit
 
-[![License](https://img.shields.io/badge/license-MIT-green)](https://raw.githubusercontent.com/AutoFixture/AutoFixture/master/LICENCE.txt)
-[![release](https://github.com/AutoFixture/AutoFixture/actions/workflows/release.yml/badge.svg)](https://github.com/AutoFixture/AutoFixture/actions/workflows/release.yml)
-[![NuGet version](https://img.shields.io/nuget/v/AutoFixture?logo=nuget)](https://www.nuget.org/packages/AutoFixture)
-[![NuGet preview version](https://img.shields.io/nuget/vpre/AutoFixture?logo=nuget)](https://www.nuget.org/packages/AutoFixture)
-[![NuGet downloads](https://img.shields.io/nuget/dt/AutoFixture)](https://www.nuget.org/packages/AutoFixture)
-<a href="https://x.com/AutoFixture">
-    <img src="https://img.shields.io/twitter/follow/AutoFixture?label=%40AutoFixture" alt="AutoFixture" align="right" />
-</a>
+[![License](https://img.shields.io/badge/license-MIT-green)](https://raw.githubusercontent.com/AutoFixture/AutoFixture.xUnit/master/LICENCE.txt)
+[![NuGet version](https://img.shields.io/nuget/v/AutoFixture.xUnit?logo=nuget)](https://www.nuget.org/packages/AutoFixture.xUnit)
+[![NuGet preview version](https://img.shields.io/nuget/vpre/AutoFixture.xUnit?logo=nuget)](https://www.nuget.org/packages/AutoFixture.xUnit)
+[![NuGet downloads](https://img.shields.io/nuget/dt/AutoFixture.xUnit)](https://www.nuget.org/packages/AutoFixture.xUnit)
 
-Write maintainable unit tests, faster.
+[AutoFixture.xUnit](https://github.com/AutoFixture/AutoFixture.xUnit) is a .NET library that integrates [AutoFixture](https://github.com/AutoFixture/AutoFixture) with xUnit 1.x, allowing you to effortlessly generate test data for your unit tests.
+By automatically populating your test parameters, it helps you write cleaner, more maintainable tests without having to manually construct test objects.
 
-AutoFixture makes it easier for developers to do Test-Driven Development by automating non-relevant Test Fixture Setup, allowing the Test Developer to focus on the essentials of each test case.
-
-Check the [testimonials](https://github.com/AutoFixture/AutoFixture/wiki/Who-uses-AutoFixture) to see what other people have to say about AutoFixture.
+> [!WARNING]
+> While this package is still being developed, the xUnit 1 package is deprecated.<br/>
+> This package is intended only for legacy projects that are still using xUnit 1.x.<br/>
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Downloads](#downloads)
-- [Documentation](#documentation)
-- [Feedback & Questions](#feedback--questions)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Integrations](#integrations)
+- [Contributing](#contributing)
 - [License](#license)
 
-## Overview
-
-(Jump straight to the [CheatSheet](https://github.com/AutoFixture/AutoFixture/wiki/Cheat-Sheet) if you just want to see some code samples right away.)
-
-AutoFixture is designed to make Test-Driven Development more productive and unit tests more refactoring-safe. It does so by removing the need for hand-coding anonymous variables as part of a test's Fixture Setup phase. Among other features, it offers a generic implementation of the [Test Data Builder](http://www.natpryce.com/articles/000714.html) pattern.
-
-When writing unit tests, you typically need to create some objects that represent the initial state of the test. Often, an API will force you to specify much more data than you really care about, so you frequently end up creating objects that has no influence on the test, simply to make the code compile.
-
-AutoFixture can help by creating such [Anonymous Variables](https://docs.microsoft.com/en-us/archive/blogs/ploeh/anonymous-variables) for you. Here's a simple example:
-
-```c#
-[Fact]
-public void IntroductoryTest()
-{
-    // Arrange
-    Fixture fixture = new Fixture();
-
-    int expectedNumber = fixture.Create<int>();
-    MyClass sut = fixture.Create<MyClass>();
-    // Act
-    int result = sut.Echo(expectedNumber);
-    // Assert
-    Assert.Equal(expectedNumber, result);
-}
-```
-
-This example illustrates the basic principle of AutoFixture: It can create values of virtually any type without the need for you to explicitly define which values should be used. The number *expectedNumber* is created by a call to `Create<T>` - this will create a 'nice', regular integer value, saving you the effort of explicitly coming up with one.
-
-The example also illustrates how AutoFixture can be used as a [SUT Factory](http://blog.ploeh.dk/2009/02/13/SUTFactory.aspx) that creates the actual System Under Test (the MyClass instance).
-
-Given the right combination of unit testing framework and extensions for AutoFixture, we can further reduce the above test to be even more declarative:
-
-### [xUnit](http://blog.ploeh.dk/2010/10/08/AutoDataTheoriesWithAutoFixture.aspx)
-
-```c#
-[Theory, AutoData]
-public void IntroductoryTest(int expectedNumber, MyClass sut)
-{
-    int result = sut.Echo(expectedNumber);
-    Assert.Equal(expectedNumber, result);
-}
-```
-
-### [NUnit](http://gertjvr.wordpress.com/2013/09/25/howto-autofixture-nunit2)
-
-```c#
-[Test, AutoData]
-public void IntroductoryTest(int expectedNumber, MyClass sut)
-{
-    int result = sut.Echo(expectedNumber);
-    Assert.Equal(expectedNumber, result);
-}
-```
-
-Notice how we can reduce unit tests to state only the relevant parts of the test. The rest (variables, Fixture object) is relegated to attributes and parameter values that are supplied automatically by AutoFixture. The test is now only two lines of code.
-
-Using AutoFixture is as easy as referencing the library and creating a new instance of the Fixture class!
-
-## Downloads
+## Installation
 
 AutoFixture packages are distributed via NuGet.<br />
 To install the packages you can use the integrated package manager of your IDE, the .NET CLI, or reference the package directly in your project file.
 
 ```cmd
-dotnet add package AutoFixture --version 4.18.0
+dotnet add package AutoFixture.xUnit --version x.x.x
 ```
 
 ```xml
-<PackageReference Include="AutoFixture" Version="4.18.0" />
+<PackageReference Include="AutoFixture.xUnit" Version="x.x.x" />
 ```
 
+## Getting Started
+
+### Basic Usage
+
+`AutoFixture.xUnit` provides an `[AutoData]` attribute that automatically populates test method parameters with generated data.
+
+For example, imagine you have a simple calculator class:
+
+```c#
+public class Calculator
+{
+	public int Add(int a, int b) => a + b;
+}
+```
+
+You can write a test using AutoFixture to provide the input values:
+
+```c#
+using Xunit;
+using AutoFixture.xUnit;
+
+public class CalculatorTests
+{
+    [Theory, AutoData]
+    public void Add_SimpleValues_ReturnsCorrectResult(
+        Calculator calculator, int a, int b)
+    {
+        // Act
+        int result = calculator.Add(a, b);
+
+        // Assert
+        Assert.AreEqual(a + b, result);
+    }
+}
+```
+
+### Inline Auto-Data
+
+You can also combine auto-generated data with inline arguments using the `[InlineAutoData]` attribute.
+This allows you to specify some parameters while still letting AutoFixture generate the rest.
+
+```c#
+using Xunit;
+using AutoFixture.xUnit;
+using AutoFixture;
+
+public class CalculatorTests
+{
+    [Theory, InlineAutoData(5, 8)]
+    public void Add_SpecificValues_ReturnsCorrectResult(
+        int a, int b, Calculator calculator)
+    {
+        // Act
+        int result = calculator.Add(a, b);
+
+        // Assert
+        Assert.AreEqual(13, result);
+    }
+}
+```
+
+### Freezing Dependencies
+
+AutoFixture's `[Frozen]` attribute can be used to ensure that the same instance of a dependency is injected into multiple parameters.
+
+For example, if you have a consumer class that depends on a shared dependency:
+
+```c#
+public class Dependency { }
+
+public class Consumer
+{
+    public Dependency Dependency { get; }
+
+    public Consumer(Dependency dependency)
+    {
+        Dependency = dependency;
+    }
+}
+```
+
+You can freeze the Dependency so that all requests for it within the test will return the same instance:
+
+```c#
+using Xunit;
+using AutoFixture.xUnit;
+using AutoFixture;
+
+public class ConsumerTests
+{
+    [Theory, AutoData]
+    public void Consumer_UsesSameDependency(
+        [Frozen] Dependency dependency, Consumer consumer)
+    {
+        // Assert
+        Assert.AreSame(dependency, consumer.Dependency);
+    }
+}
+```
+
+## Integrations
+
 AutoFixture offers a variety of utility packages and integrations with most of the major mocking libraries and testing frameworks.
+
+> [!NOTE]
+> Since AutoFixture tries maintain compatibility with a large number of package versions, the packages bundled with AutoFixture might not contain the latest features of your (e.g. mocking) library.<br />
+> Make sure to install the latest version of the integrated library package, alongside the AutoFixture packages.
 
 ### Core packages
 
@@ -118,10 +163,6 @@ These integrations enable such features as configuring mocks, auto-injecting moc
 | FakeItEasy | [AutoFixture.AutoFakeItEasy](http://www.nuget.org/packages/AutoFixture.AutoFakeItEasy) | [![NuGet](https://img.shields.io/nuget/v/AutoFixture.AutoFakeItEasy)](https://www.nuget.org/packages/AutoFixture.AutoFakeItEasy) | [![NuGet](https://img.shields.io/nuget/vpre/AutoFixture.AutoFakeItEasy)](https://www.nuget.org/packages/AutoFixture.AutoFakeItEasy) | ![NuGet](https://img.shields.io/nuget/dt/autofixture.AutoFakeItEasy) |
 | Rhino Mocks | [AutoFixture.AutoRhinoMocks](http://www.nuget.org/packages/AutoFixture.AutoRhinoMocks) | [![NuGet](https://img.shields.io/nuget/v/AutoFixture.AutoRhinoMocks)](https://www.nuget.org/packages/AutoFixture.AutoRhinoMocks) | [![NuGet](https://img.shields.io/nuget/vpre/AutoFixture.AutoRhinoMocks)](https://www.nuget.org/packages/AutoFixture.AutoRhinoMocks) | ![NuGet](https://img.shields.io/nuget/dt/autofixture.AutoRhinoMocks) |
 
-> **NOTE:** 
-> Since AutoFixture tries maintain compatibility with a large number of package versions, the packages bundled with AutoFixture might not contain the latest features of your mocking library.<br />
-> Make sure to install the latest version of the mocking library package, alongside the AutoFixture package.
-
 ### Testing frameworks
 
 AutoFixture offers integrations with most major .NET testing frameworks.<br />
@@ -139,41 +180,14 @@ These integrations enable auto-generation of test cases, combining auto-generate
 
 You can check the compatibility with your target framework version on the [wiki](https://github.com/AutoFixture/AutoFixture/wiki#net-platforms-compatibility-table) or on the [NuGet](https://www.nuget.org/profiles/AutoFixture) website.
 
-### vNext feed
+## Contributing
 
-The artifacts of the next major version are published to [nuget.org](https://www.nuget.org), and are marked with the `preview` suffix (e.g. `5.0.0-preview00007`).</br>
-You can use these packages to early access and test the next major version of the AutoFixture.</br>
-Make sure to enable the preview packages in your IDE in order to see the latest version.
-
-> __NOTE:__ This preview versions exists for the _preview purpose_ only, so use them with caution:
->
->* New versions of packages might contain breaking changes and API could change drastically from package to package. By other words, we don't follow the SemVer policy for the packages in this feed;
->* Preview packages might be unlisted over time, in order to not clutter the version suggestion dialog in IDEs, but will generally remain available
-
-## Documentation
-
-* [CheatSheet](https://github.com/AutoFixture/AutoFixture/wiki/Cheat-Sheet)
-* [FAQ](https://github.com/AutoFixture/AutoFixture/wiki/FAQ)
-
-### Additional resources
-
-* [Pluralsight course](https://www.pluralsight.com/courses/unit-testing-autofixture-dot-net)
-* [ploeh blog](http://blog.ploeh.dk/tags/#AutoFixture-ref)
-* [Nikos Baxevanis' blog](http://blog.nikosbaxevanis.com)
-* [Enrico Campidoglio's blog](http://megakemp.com/tag/autofixture)
-* [Gert Jansen van Rensburg's blog](http://gertjvr.wordpress.com/category/autofixture)
-* [Questions on Stack Overflow](http://stackoverflow.com/questions/tagged/autofixture)
-
-## Feedback & Questions
-
-If you have questions, feel free to ask. The best places to ask are:
-
-* [Stack Overflow - use the *autofixture* tag](http://stackoverflow.com/questions/tagged/autofixture)
-* [GitHub Q&A Discussions](https://github.com/AutoFixture/AutoFixture/discussions/categories/q-a)
+Contributions to `AutoFixture.xUnit` are welcome!
+If you would like to contribute, please review our [contributing guidelines](https://github.com/AutoFixture/AutoFixture.xUnit/blob/maste/CONTRIBUTING.md) and open an issue or pull request.
 
 ## License
 
-AutoFixture is Open Source software and is released under the [MIT license](https://raw.githubusercontent.com/AutoFixture/AutoFixture/master/LICENCE.txt).<br />
+AutoFixture is Open Source software and is released under the [MIT license](https://raw.githubusercontent.com/AutoFixture/AutoFixture.xUnit/master/LICENCE.txt).<br />
 The licenses allows the use of AutoFixture libraries in free and commercial applications and libraries without restrictions.
 
 ### .NET Foundation

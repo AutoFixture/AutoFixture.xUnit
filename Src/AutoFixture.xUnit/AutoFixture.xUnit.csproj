@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Common.props" />
+  <Import Project="..\..\Common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFrameworks>net452;net462</TargetFrameworks>
     <AssemblyTitle>AutoFixture.xUnit.net</AssemblyTitle>
     <AssemblyName>AutoFixture.Xunit</AssemblyName>
     <RootNamespace>AutoFixture.Xunit</RootNamespace>
-    <Copyright>Copyright © Ploeh 2011</Copyright>
 
     <!-- NuGet options -->
     <PackageId>AutoFixture.Xunit</PackageId>
@@ -15,13 +14,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.18.1" />
     <PackageReference Include="xunit.extensions" Version="[1.8.0.1549,2.0.0)" />
     <!-- Isn't actually needed by this library, but is present as a NuGet guard to prevent installation of this package 
      together with xUnit2 and higher. -->
     <PackageReference Include="xunit" Version="[1.8.0.1549,2.0.0)" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AutoFixture\AutoFixture.csproj" />
-  </ItemGroup>
 </Project>
