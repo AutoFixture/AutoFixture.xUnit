@@ -1,0 +1,63 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTypeFoundation", "Src\TestTypeFoundation\TestTypeFoundation.csproj", "{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.xUnit", "Src\AutoFixture.xUnit\AutoFixture.xUnit.csproj", "{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixture.xUnit.UnitTest", "Src\AutoFixture.xUnit.UnitTest\AutoFixture.xUnit.UnitTest.csproj", "{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0A01F00-72C7-4CE4-8BA4-9EB178B72329}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		AutoFixture.globalconfig = AutoFixture.globalconfig
+		AutoFixture.Tests.globalconfig = AutoFixture.Tests.globalconfig
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		Common.props = Common.props
+		Common.Test.props = Common.Test.props
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENCE.txt = LICENCE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{16506C81-BE25-498B-AEE8-E14D0E6F0108}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Verify|Any CPU = Verify|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Verify|Any CPU.ActiveCfg = Verify|Any CPU
+		{7FF65787-F462-4204-BB9D-60B0D1BB6CC1}.Verify|Any CPU.Build.0 = Verify|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Verify|Any CPU.ActiveCfg = Verify|Any CPU
+		{266B9F0E-28E5-47CA-9816-ACB6737E7E4D}.Verify|Any CPU.Build.0 = Verify|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Verify|Any CPU.ActiveCfg = Verify|Any CPU
+		{14FADDF9-F0D2-4BD4-B285-FDDAB5762CC4}.Verify|Any CPU.Build.0 = Verify|Any CPU
+		{16506C81-BE25-498B-AEE8-E14D0E6F0108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16506C81-BE25-498B-AEE8-E14D0E6F0108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16506C81-BE25-498B-AEE8-E14D0E6F0108}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3773F071-12A7-4E2D-93DE-EB4AD04D2CB9}
+	EndGlobalSection
+EndGlobal

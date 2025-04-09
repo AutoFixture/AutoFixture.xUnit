@@ -2,32 +2,47 @@
   <PropertyGroup>
     <Product>AutoFixture</Product>
     <Company>AutoFixture</Company>
-    <Copyright>Copyright © AutoFixture 2011</Copyright>
+    <Copyright>Copyright © AutoFixture</Copyright>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeAnalysis.Empty.ruleset</CodeAnalysisRuleSet>
 
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)AutoFixture.snk</AssemblyOriginatorKeyFile>
 
     <Configurations>Debug;Release;Verify</Configurations>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>10</LangVersion>
 
     <Deterministic>true</Deterministic>
 
+    <!-- NETSDK1138: Ignore .NET SDK deprecation notice -->
+    <NoWarn>$(NoWarn);NETSDK1138;NU1902;NU1903</NoWarn>
+
+    <!-- Setup static code analysis mode. -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-Recommended</AnalysisLevel>
+
     <!-- NuGet options -->
-    <Authors>Mark Seemann,AutoFixture</Authors>
-    <PackageProjectUrl>https://github.com/AutoFixture/AutoFixture</PackageProjectUrl>
+    <Authors>AutoFixture Contributors</Authors>
+    <PackageProjectUrl>https://github.com/AutoFixture/AutoFixture.xUnit</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/AutoFixture/AutoFixture/79c882c3f4af3cf52ad43e5c95851f25d217ac17/AutoFixtureLogo200x200.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)..\AutoFixtureLogo200x200.png" Pack="true" PackagePath="icon.png"/>
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)/AutoFixture.globalconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)\AutoFixtureLogo200x200.png" Pack="true" PackagePath="icon.png"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +53,7 @@
   </ItemGroup>
 
   <Choose>
-    <When Condition="$(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp'))">
+    <When Condition="$(TargetFramework.StartsWith('net4')) == 'false'">
       <PropertyGroup>
         <DefineConstants>$(DefineConstants);SYSTEM_GLOBALIZATION_CULTUREINFO_CULTURESETTERS</DefineConstants>
       </PropertyGroup>
@@ -51,31 +66,26 @@
     </Otherwise>
   </Choose>
   <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netcoreapp2.1' ">$(DefineConstants);SYSTEM_NET_MAIL</DefineConstants>
+    <DefineConstants Condition=" $(TargetFramework.StartsWith('net4')) == 'false' ">$(DefineConstants);SYSTEM_NET_MAIL</DefineConstants>
   </PropertyGroup>
 
   <Choose>
     <When Condition=" '$(Configuration)'=='Release' ">
       <PropertyGroup>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <!-- Ensure that we create Windows PDB for Full framework and Portable PDB for NET Core -->
-        <DebugType Condition=" '$(_IsFullFramework)'=='true' ">full</DebugType>
-        <DebugType Condition=" '$(_IsFullFramework)'!='true' ">portable</DebugType>
+        <DebugType>portable</DebugType>
       </PropertyGroup>
     </When>
     <When Condition=" '$(Configuration)'=='Verify' ">
       <PropertyGroup>
         <DefineConstants>$(DefineConstants);CODE_ANALYSIS</DefineConstants>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\CodeAnalysis.AutoFixture.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
       </PropertyGroup>
     </When>
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
   </ItemGroup>
 </Project>
