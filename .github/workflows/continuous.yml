@@ -1,15 +1,19 @@
 name: continuous
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
-      - master
+      - main
       - 'release/*'
 
 jobs:
   windows-latest:
     name: windows-latest
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
